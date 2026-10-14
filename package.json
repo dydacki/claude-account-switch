@@ -1,0 +1,36 @@
+{
+  "name": "claude-account-switch",
+  "displayName": "Claude Account Switch",
+  "description": "Switch the Claude Code account used by the VS Code panel and terminals via CLAUDE_CONFIG_DIR.",
+  "version": "0.1.1",
+  "publisher": "dydacki",
+  "private": true,
+  "engines": { "vscode": "^1.90.0" },
+  "main": "./extension.js",
+  "activationEvents": ["onStartupFinished"],
+  "contributes": {
+    "commands": [{ "command": "claudeAccountSwitch.switch", "title": "Claude: Switch Account" }],
+    "configuration": {
+      "title": "Claude Account Switch",
+      "properties": {
+        "claudeAccountSwitch.profiles": {
+          "type": "array",
+          "scope": "application",
+          "description": "Accounts to switch between. configDir null means Claude Code's default (~/.claude + ~/.claude.json).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "configDir": { "type": ["string", "null"] }
+            },
+            "required": ["name"]
+          },
+          "default": [
+            { "name": "Work", "configDir": null },
+            { "name": "Personal", "configDir": "~/.claude-personal" }
+          ]
+        }
+      }
+    }
+  }
+}
